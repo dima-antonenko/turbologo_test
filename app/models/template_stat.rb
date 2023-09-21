@@ -1,0 +1,2 @@
+class TemplateStat < ApplicationRecord
+end
