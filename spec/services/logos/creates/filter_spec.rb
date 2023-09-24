@@ -41,6 +41,26 @@ RSpec.describe Logos::Creates::Filter, type: :service do
       expect(res.first.id).to eq(template_with_slogan.id)
     end
 
+    it 'All templates must be return' do
+      res =  Logos::Creates::Filter.new(Template.all, '12345678901', nil, nil, []).call
+
+      expect(res.size).to eq(2)
+    end
+  end
+
+
+  describe 'filter by icon' do
+    let!(:template_with_icon) { create(:template, icon_required: true) }
+    let!(:template_without_icon) { create(:template, icon_required: false) }
+
+
+    it 'Template with icon required must be return' do
+      res =  Logos::Creates::Filter.new(Template.all, '123456', nil, nil, [1, 2, 3]).call
+
+      expect(res.size).to eq(1)
+      expect(res.first.id).to eq(template_with_icon.id)
+    end
+
     it 'Template with slogan required must be return' do
       res =  Logos::Creates::Filter.new(Template.all, '12345678901', nil, nil, []).call
 
