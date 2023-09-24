@@ -35,14 +35,14 @@ RSpec.describe Logos::Creates::Filter, type: :service do
 
 
     it 'Template with slogan required must be return' do
-      res =  Logos::Creates::Filter.new(Template.all, '123456', nil, 'slogan', []).call
+      res =  Logos::Creates::Filter.new(Template.all, '123', nil, 'slogan', []).call
 
       expect(res.size).to eq(1)
       expect(res.first.id).to eq(template_with_slogan.id)
     end
 
     it 'All templates must be return' do
-      res =  Logos::Creates::Filter.new(Template.all, '12345678901', nil, nil, []).call
+      res =  Logos::Creates::Filter.new(Template.all, '123', nil, nil, []).call
 
       expect(res.size).to eq(2)
     end
@@ -55,16 +55,38 @@ RSpec.describe Logos::Creates::Filter, type: :service do
 
 
     it 'Template with icon required must be return' do
-      res =  Logos::Creates::Filter.new(Template.all, '123456', nil, nil, [1, 2, 3]).call
+      res =  Logos::Creates::Filter.new(Template.all, '123', nil, nil, [1, 2, 3]).call
 
       expect(res.size).to eq(1)
       expect(res.first.id).to eq(template_with_icon.id)
     end
 
     it 'Template with slogan required must be return' do
-      res =  Logos::Creates::Filter.new(Template.all, '12345678901', nil, nil, []).call
+      res =  Logos::Creates::Filter.new(Template.all, '123', nil, nil, []).call
 
       expect(res.size).to eq(2)
+    end
+  end
+
+  describe 'filter by industry' do
+    let!(:template_valid_industry) { create(:template) }
+    let!(:valid_industry) { create(:industry) }
+    let!(:advanced_data_valid_template) { create(:advanced_data,
+                                                 template_id: template_valid_industry.id,
+                                                 industry_id: valid_industry.id) }
+
+    let!(:template_invalid_industry) { create(:template) }
+    let!(:invalid_industry) { create(:industry) }
+    let!(:advanced_data_invalid_template) { create(:advanced_data,
+                                                 template_id: template_invalid_industry.id,
+                                                 industry_id: invalid_industry.id) }
+
+
+    it 'Template with valid industry must be return' do
+      res =  Logos::Creates::Filter.new(Template.all, '123', valid_industry.id, nil, []).call
+
+      expect(res.size).to eq(1)
+      expect(res.first.id).to eq(template_valid_industry.id)
     end
   end
 end
