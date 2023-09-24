@@ -30,11 +30,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_21_061021) do
 
   create_table "company_length_datas", force: :cascade do |t|
     t.integer "template_id", null: false
-    t.integer "company_name_length", default: 0, null: false
+    t.integer "company_name_length_min", default: 0, null: false
+    t.integer "company_name_length_max", default: 0, null: false
     t.integer "sales_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_name_length"], name: "index_company_length_datas_on_company_name_length"
+    t.index ["company_name_length_max"], name: "index_company_length_datas_on_company_name_length_max"
+    t.index ["company_name_length_min"], name: "index_company_length_datas_on_company_name_length_min"
     t.index ["sales_count"], name: "index_company_length_datas_on_sales_count"
     t.index ["template_id"], name: "index_company_length_datas_on_template_id"
   end
