@@ -12,7 +12,7 @@ module Logos
       end
 
       def call
-        #  by_company_name
+        by_company_name
         by_slogan
         by_icon
         by_industry
@@ -30,6 +30,7 @@ module Logos
         self.templates = templates.joins(:company_length_datas)
                                   .where('company_length_datas.company_name_length_min >= ?', company_name.size)
                                   .where('company_length_datas.company_name_length_max <= ?', company_name.size)
+
       end
 
       def by_slogan
