@@ -23,13 +23,9 @@ module Logos
       private
 
       def by_company_name
-        # self.templates = templates.joins(:company_length_datas)
-        #                          .where({ company_length_datas: { 'company_name_length_min >= ? ' => company_name.size } })
-        #                          .where({ company_length_datas: { 'company_name_length_max <= ? ' => company_name.size } })
-
         self.templates = templates.joins(:company_length_datas)
-                                  .where('company_length_datas.company_name_length_min >= ?', company_name.size)
-                                  .where('company_length_datas.company_name_length_max <= ?', company_name.size)
+                                  .where('company_length_datas.company_name_length_min <= ?', company_name.size)
+                                  .where('company_length_datas.company_name_length_max >= ?', company_name.size)
 
       end
 

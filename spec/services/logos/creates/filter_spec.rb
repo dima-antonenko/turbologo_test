@@ -4,14 +4,14 @@ RSpec.describe Logos::Creates::Filter, type: :service do
     let!(:short_company_name_template) { create(:template) }
     let!(:company_length_data_short) { create(:company_length_data,
                                               template_id: short_company_name_template.id,
-                                              company_name_length_min: 6,
-                                              company_name_length_max: 6) }
+                                              company_name_length_min: 5,
+                                              company_name_length_max: 7) }
 
     let!(:long_company_name_template) { create(:template) }
     let!(:company_length_data_long) { create(:company_length_data,
                                              template_id: long_company_name_template.id,
-                                             company_name_length_min: 10,
-                                             company_name_length_max: 10) }
+                                             company_name_length_min: 9,
+                                             company_name_length_max: 11) }
 
     it 'short company must be result in filer by short companies' do
       res = Logos::Creates::Filter.new(Template.all, '123456', nil, nil, []).call
