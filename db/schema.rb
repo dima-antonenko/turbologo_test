@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_21_061021) do
   end
 
   create_table "template_stats", force: :cascade do |t|
-    t.string "template_id"
+    t.integer "template_id"
     t.integer "industry_id"
     t.integer "impressions_count"
     t.integer "clicks_count"

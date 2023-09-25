@@ -1,8 +1,8 @@
 FactoryBot.define do
-  factory :template_name do
+  factory :template_stat do
     template
     industry
-    impression_count { 1 }
+    impressions_count { 1 }
     clicks_count { 1 }
     sales_count { 1 }
   end
